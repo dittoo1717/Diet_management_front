@@ -2,7 +2,7 @@
   <div class="signup-container">
     <div class="signup-box">
       <div class="logo-section">
-        <img :src="logoImage" alt="Just Eat It Logo" class="logo">
+        <img :src="logoImage" alt="Just Eat It Logo" class="logo" @click="goToMain">
       </div>
       <div class="form-section">
         <form @submit.prevent="handleSignup" class="signup-form">
@@ -63,6 +63,9 @@ export default {
         nickname: this.nickname,
         gender: this.gender
       })
+    },
+    goToMain() {
+      this.$router.push('/')
     }
   }
 }
@@ -79,11 +82,11 @@ export default {
 
 .signup-box {
   background-color: white;
-  padding: 4rem;
+  padding: 3rem;
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 1600px;
+  max-width: 800px;
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -99,21 +102,24 @@ export default {
 }
 
 .form-section {
-  flex: 1.6;
+  flex: 0.6;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 1rem;
+  padding-left: 2rem;
 }
 
 .logo {
-  width: 180px;
+  width: 300px;
+  height: auto;
   display: block;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .signup-form {
   width: 100%;
-  max-width: 800px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -177,25 +183,20 @@ input[type="text"] {
 }
 
 .signup-button {
-  background-color: #000;
-  color: white;
-  padding: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #26FF00;
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 1.2rem;
-  width: 100%;
-  box-sizing: border-box;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .signup-button:hover {
-  background-color: #333;
+  background-color: #1fd800;
 }
 
 .additional-links {
@@ -225,9 +226,9 @@ input[type="text"] {
 @media (max-width: 768px) {
   .signup-box {
     flex-direction: column;
-    gap: 3rem;
-    max-width: 500px;
-    padding: 3rem;
+    gap: 2rem;
+    max-width: 400px;
+    padding: 2rem;
   }
 
   .logo-section {
@@ -246,7 +247,8 @@ input[type="text"] {
   }
 
   .logo {
-    width: 150px;
+    width: 240px;
+    height: auto;
   }
 
   .signup-form {

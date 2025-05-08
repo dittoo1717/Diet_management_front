@@ -2,7 +2,7 @@
   <div class="reset-container">
     <div class="reset-box">
       <div class="logo-section">
-        <img :src="logoImage" alt="Just Eat It Logo" class="logo">
+        <img :src="logoImage" alt="Just Eat It Logo" class="logo" @click="goToMainPage">
       </div>
       <div class="form-section">
         <form @submit.prevent="handleResetPassword" class="reset-form">
@@ -11,13 +11,13 @@
           <div class="form-group">
             <input type="email" v-model="email" placeholder="이메일" required>
           </div>
-          <button type="button" class="send-button" @click="sendVerificationCode" :disabled="isCodeSent">
+          <button type="button" class="send-button" @click="sendVerificationCode">
             {{ isCodeSent ? '인증번호 재전송' : '인증번호 받기' }}
           </button>
           <div class="form-group" v-if="isCodeSent">
             <input type="text" v-model="verificationCode" placeholder="인증번호 6자리" required>
           </div>
-          <button type="submit" class="reset-button" :disabled="!isCodeSent">비밀번호 확인</button>
+          <button type="submit" class="reset-button" v-if="isCodeSent" :disabled="!isCodeSent">비밀번호 확인</button>
           <div class="additional-links">
             <router-link to="/login" class="text-button">로그인 페이지로 이동</router-link>
           </div>
@@ -66,6 +66,9 @@ export default {
         email: this.email,
         verificationCode: this.verificationCode
       })
+    },
+    goToMainPage() {
+      this.$router.push('/')
     }
   }
 }
@@ -82,18 +85,18 @@ export default {
 
 .reset-box {
   background-color: white;
-  padding: 4rem;
+  padding: 3rem;
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 1400px;
+  max-width: 800px;
   display: flex;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .logo-section {
-  flex: 0.5;
+  flex: 0.4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,7 +105,7 @@ export default {
 }
 
 .form-section {
-  flex: 1.5;
+  flex: 0.6;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -110,13 +113,16 @@ export default {
 }
 
 .logo {
-  width: 180px;
+  width: 300px;
+  height: auto;
   display: block;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .reset-form {
   width: 100%;
-  max-width: 700px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -154,56 +160,81 @@ input[type="text"] {
 }
 
 .send-button {
-  background-color: #666;
-  color: white;
-  padding: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #26FF00;
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: 100%;
-  box-sizing: border-box;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 20px;
 }
 
 .send-button:hover:not(:disabled) {
-  background-color: #555;
+  background-color: #1fd800;
 }
 
 .send-button:disabled {
   background-color: #999;
   cursor: not-allowed;
+  color: #ffffff;
 }
 
 .reset-button {
-  background-color: #000;
-  color: white;
-  padding: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #26FF00;
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 1.2rem;
+  margin-top: 20px;
+}
+
+.reset-button:hover {
+  background-color: #1fd800;
+}
+
+.verify-button {
   width: 100%;
-  box-sizing: border-box;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 50px;
+  background-color: #26FF00;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
 }
 
-.reset-button:hover:not(:disabled) {
-  background-color: #333;
+.verify-button:hover {
+  background-color: #1fd800;
 }
 
-.reset-button:disabled {
-  background-color: #999;
-  cursor: not-allowed;
+.confirm-button {
+  width: 100%;
+  height: 50px;
+  background-color: #26FF00;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.confirm-button:hover {
+  background-color: #1fd800;
 }
 
 .additional-links {
@@ -234,9 +265,9 @@ input[type="text"] {
 @media (max-width: 768px) {
   .reset-box {
     flex-direction: column;
-    gap: 3rem;
-    max-width: 500px;
-    padding: 3rem;
+    gap: 2rem;
+    max-width: 400px;
+    padding: 2rem;
   }
 
   .logo-section {
@@ -255,7 +286,8 @@ input[type="text"] {
   }
 
   .logo {
-    width: 150px;
+    width: 240px;
+    height: auto;
   }
 
   .reset-form {

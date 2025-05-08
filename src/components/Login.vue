@@ -2,10 +2,10 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo-section">
-        <img :src="logoImage" alt="Just Eat It Logo" class="logo">
+        <img :src="logoImage" alt="Just Eat It Logo" class="logo" @click="goToMain">
       </div>
       <div class="form-section">
-        <form @submit.prevent="handleLogin" class="login-form">
+        <form class="login-form" @submit.prevent="handleLogin">
           <div class="form-group">
             <input type="email" v-model="email" placeholder="이메일" required>
           </div>
@@ -37,9 +37,17 @@ export default {
     }
   },
   methods: {
-    handleLogin() {
-      // 로그인 로직 구현
-      console.log('로그인 시도:', this.email)
+    async handleLogin() {
+      try {
+        // 로그인 로직
+        localStorage.setItem('isAuthenticated', 'true')
+        this.$router.push('/')
+      } catch (error) {
+        console.error('로그인 실패:', error)
+      }
+    },
+    goToMain() {
+      this.$router.push('/')
     }
   }
 }
@@ -52,22 +60,23 @@ export default {
   align-items: center;
   min-height: 100vh;
   background-color: white;
+  font-family: 'ESAManru Bold', sans-serif;
 }
 
 .login-box {
   background-color: white;
-  padding: 5rem;
+  padding: 3rem;
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 1600px;
+  max-width: 800px;
   display: flex;
   align-items: center;
   gap: 3rem;
 }
 
 .logo-section {
-  flex: 0.5;
+  flex: 0.4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,22 +84,25 @@ export default {
   padding-right: 2rem;
 }
 
+.logo {
+  width: 250px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  cursor: pointer;
+}
+
 .form-section {
-  flex: 1.5;
+  flex: 0.6;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding-left: 2rem;
 }
 
-.logo {
-  width: 200px;
-  display: block;
-}
-
 .login-form {
   width: 100%;
-  max-width: 800px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -113,7 +125,7 @@ input {
 }
 
 .login-button {
-  background-color: #000;
+  background-color: #26FF00;
   color: white;
   padding: 0;
   border: none;
@@ -131,7 +143,7 @@ input {
 }
 
 .login-button:hover {
-  background-color: #333;
+  background-color: #1fd800;
 }
 
 .additional-links {

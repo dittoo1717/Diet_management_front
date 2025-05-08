@@ -1,12 +1,16 @@
-<script setup>
-import Login from './components/Login.vue'
+<script>
+export default {
+  name: 'App'
+}
 </script>
 
 <template>
-  <router-view></router-view>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
-<style scoped>
+<style>
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +19,12 @@ import Login from './components/Login.vue'
 
 body {
   font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
 }
 
 .logo {
